@@ -25,8 +25,6 @@ const Agence = () => {
     "https://k72.ca/uploads/teamMembers/joel_480X640_3-480x640.jpg",
   ];
 
-  console.log(imagesArray);
-
   useGSAP(function () {
     gsap.to(imageDivRef.current, {
       scrollTrigger: {
