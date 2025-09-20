@@ -1,11 +1,58 @@
-import React from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import { useRef } from "react";
 
 const Agence = () => {
+  gsap.registerPlugin(ScrollTrigger);
+  const imageDivRef = useRef(null);
+  const imageRef = useRef(null);
+
+  const imagesArray = [
+    "https://k72.ca/uploads/teamMembers/Carl_480x640-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/Claire_640X960-640x960.jpg",
+    "https://k72.ca/uploads/teamMembers/CAMILLE_640X960_2-640x960.jpg",
+    "https://k72.ca/uploads/teamMembers/Olivier_480x640-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/Lawrence_480x640-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/HugoJoseph_480x640-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/ChantalG_480x640-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/MyleneS_480x640-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/SophieA_480x640-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/Michele_480X640-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/MEL_480X640-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/MAXIME_480X640_2-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/MEGGIE_480X640_2-480x640.jpg",
+    "https://k72.ca/uploads/teamMembers/joel_480X640_3-480x640.jpg",
+  ];
+
+  console.log(imagesArray);
+
+  useGSAP(function () {
+    gsap.to(imageDivRef.current, {
+      scrollTrigger: {
+        trigger: imageDivRef.current,
+        markers: true,
+        start: "top 22%",
+        end: "top -114%",
+        scrub: true,
+        pin: true,
+        onUpdate: (elem) => {
+          const imageIndex = Math.floor(elem.progress * (imagesArray.length - 1));
+
+          imageRef.current.src = imagesArray[imageIndex];
+        },
+      },
+    });
+  });
+
   return (
     <div>
       <div className='section1'>
-        <div className='absolute top-50 left-[30vw] overflow-hidden h-[20vw] w-[15vw] rounded-3xl bg-amber-500'>
+        <div
+          ref={imageDivRef}
+          className='absolute top-50 left-[30vw] overflow-hidden h-[20vw] w-[15vw] rounded-3xl bg-amber-500'>
           <img
+            ref={imageRef}
             className='w-full h-full object-cover'
             src='https://k72.ca/uploads/teamMembers/Carl_480x640-480x640.jpg'
             alt=''
